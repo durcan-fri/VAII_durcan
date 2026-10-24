@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ÚSNSS - Nová stránka</title>
+    <!-- Hlavný globálny CSS súbor pre layout -->
+    <link rel="stylesheet" href="layout.css">
+</head>
+<body>
+
+<div class="app-layout">
+    <!-- Bočný navigačný panel (Left Sidebar) -->
+    <aside class="sidebar">
+        <nav class="sidebar-nav">
+            <!-- Triedu 'active' pridáš na položku, na ktorej sa používateľ práve nachádza -->
+            <a href="template.html" class="nav-item active">Prehľad</a>
+            <a href="index.html" class="nav-item">Materiál</a>
+            <a href="#" class="nav-item">Dodávatelia</a>
+            <a href="#" class="nav-item">Nastavenia</a>
+        </nav>
+    </aside>
+
+    <!-- Hlavný konajner aplikácie -->
+    <div class="main-wrapper">
+        <!-- Horná informačná lišta -->
+        <header class="top-header">
+            <div class="brand">
+                <div class="logo-icon">
+                    <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+                        <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+                        <line x1="12" y1="22.08" x2="12" y2="12"></line>
+                    </svg>
+                </div>
+                <span class="app-title">ÚSNSS - Úžasný systém na spravovanie skladu</span>
+            </div>
+            <div class="header-right">
+                <div class="datetime-info">
+                    <span class="label">Dátum a čas</span>
+                    <span class="value">15. 10. 2026 · 18:41</span>
+                </div>
+                <div class="user-profile">
+                    <div class="avatar">JN</div>
+                    <div class="user-details">
+                        <span class="user-name">Ján Novák</span>
+                        <span class="user-role">Admin</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Hlavná oblasť pre obsah (Prázdna šablóna) -->
+        <main class="main-content">
+            <div class="page-header">
+                <h1>Názov stránky</h1>
+                <!-- Priestor pre primárne tlačidlo (napr. Pridať položku) -->
+            </div>
+
+            <!-- Tu vkladáš konkrétny obsah konkrétnej stránky (napr. tabuľku, formulár, karty) -->
+        </main>
+    </div>
+</div>
+
+</body>
+</html>
