@@ -5,7 +5,6 @@
 
 $currentUnit = $material?->getUnit() ?? 'ks';
 $currentWarehouse = $material?->getWarehouse() ?? 'Hlavný';
-$currentStatus = $material?->getStatus() ?? 'Aktívny';
 ?>
 
 <?php if (!empty($errors)) { ?>
@@ -47,6 +46,15 @@ $currentStatus = $material?->getStatus() ?? 'Aktívny';
     </div>
 
     <div class="form-group">
+        <label for="min_stock" class="form-label">
+            Minimálne množstvo na sklade <span class="required">*</span>
+        </label>
+        <input type="number" name="min_stock" id="min_stock" class="form-control"
+               min="0" step="1"
+               value="<?= e((string)($material?->getMinStock() ?? 0)) ?>" required>
+    </div>
+
+    <div class="form-group">
         <label for="unit" class="form-label">
             Merná jednotka <span class="required">*</span>
         </label>
@@ -73,17 +81,6 @@ $currentStatus = $material?->getStatus() ?? 'Aktívny';
             <option value="Rezervný" <?= $currentWarehouse === 'Rezervný' ? 'selected' : '' ?>>Rezervný</option>
             <option value="Príručný" <?= $currentWarehouse === 'Príručný' ? 'selected' : '' ?>>Príručný</option>
             <option value="Externý" <?= $currentWarehouse === 'Externý' ? 'selected' : '' ?>>Externý</option>
-        </select>
-    </div>
-
-    <div class="form-group">
-        <label for="status" class="form-label">
-            Stav materiálu <span class="required">*</span>
-        </label>
-        <select name="status" id="status" class="form-control" required>
-            <option value="Aktívny" <?= $currentStatus === 'Aktívny' ? 'selected' : '' ?>>Aktívny</option>
-            <option value="Rezerva" <?= $currentStatus === 'Rezerva' ? 'selected' : '' ?>>Rezerva</option>
-            <option value="Kritický" <?= $currentStatus === 'Kritický' ? 'selected' : '' ?>>Kritický</option>
         </select>
     </div>
 

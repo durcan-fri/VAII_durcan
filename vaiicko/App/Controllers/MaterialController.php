@@ -51,8 +51,8 @@ class MaterialController extends BaseController
 
         if ($search !== '') {
             $materials = Material::getAll(
-                '`title` LIKE ? OR `code` LIKE ? OR `warehouse` LIKE ? OR `status` LIKE ?',
-                ["%{$search}%", "%{$search}%", "%{$search}%", "%{$search}%"],
+                '`title` LIKE ? OR `code` LIKE ? OR `warehouse` LIKE ?',
+                ["%{$search}%", "%{$search}%", "%{$search}%"],
                 'id ASC'
             );
         } else {
@@ -107,8 +107,8 @@ class MaterialController extends BaseController
         $material = new Material();
         $material->setUnit('ks');
         $material->setWarehouse('Hlavný');
-        $material->setStatus('Aktívny');
         $material->setInStock(0);
+        $material->setMinStock(0);
 
         return $this->html([
             'material' => $material,
@@ -165,9 +165,9 @@ class MaterialController extends BaseController
         $title = trim((string)$request->value('title'));
         $code = trim((string)$request->value('code'));
         $inStockRaw = $request->value('in_stock');
+        $minStockRaw = $request->value('min_stock');
         $unit = trim((string)$request->value('unit'));
         $warehouse = trim((string)$request->value('warehouse'));
-        $status = trim((string)$request->value('status'));
         $description = trim((string)$request->value('description'));
 
         $errors = [];
@@ -181,22 +181,22 @@ class MaterialController extends BaseController
         if ($inStockRaw === null || $inStockRaw === '' || !is_numeric($inStockRaw) || (int)$inStockRaw < 0) {
             $errors[] = 'Množstvo na sklade musí byť nezáporné číslo.';
         }
+        if ($minStockRaw === null || $minStockRaw === '' || !is_numeric($minStockRaw) || (int)$minStockRaw < 0) {
+            $errors[] = 'Minimálne množstvo na sklade musí byť nezáporné číslo.';
+        }
         if ($unit === '') {
             $errors[] = 'Merná jednotka je povinný údaj.';
         }
         if ($warehouse === '') {
             $errors[] = 'Sklad je povinný údaj.';
         }
-        if ($status === '') {
-            $errors[] = 'Stav materiálu je povinný údaj.';
-        }
 
         $material->setTitle($title);
         $material->setCode($code);
         $material->setInStock((int)$inStockRaw);
+        $material->setMinStock((int)$minStockRaw);
         $material->setUnit($unit);
         $material->setWarehouse($warehouse);
-        $material->setStatus($status);
         $material->setDescription($description);
 
         if (!empty($errors)) {

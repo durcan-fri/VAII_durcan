@@ -41,6 +41,11 @@
         </div>
 
         <div class="detail-item">
+            <span class="detail-label">Min. množstvo na sklade</span>
+            <span class="detail-value"><?= e((string)($material->getMinStock() ?? 0)) ?> <?= e($material->getUnit()) ?></span>
+        </div>
+
+        <div class="detail-item">
             <span class="detail-label">Umiestnenie skladu</span>
             <span class="detail-value"><?= e($material->getWarehouse()) ?></span>
         </div>

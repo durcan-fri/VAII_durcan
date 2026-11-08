@@ -20,9 +20,9 @@ class Material extends Model
         'title',
         'code',
         'in_stock',
+        'min_stock',
         'unit',
         'warehouse',
-        'status',
         'description',
     ];
 
@@ -30,9 +30,9 @@ class Material extends Model
     protected ?string $title = null;
     protected ?string $code = null;
     protected ?int $in_stock = null;
+    protected ?int $min_stock = null;
     protected ?string $unit = null;
     protected ?string $warehouse = null;
-    protected ?string $status = null;
     protected ?string $description = null;
     protected ?string $created_at = null;
 
@@ -81,6 +81,37 @@ class Material extends Model
         return $this;
     }
 
+    public function getMinStock(): ?int
+    {
+        return $this->min_stock;
+    }
+
+    public function setMinStock(?int $min_stock): self
+    {
+        $this->min_stock = $min_stock;
+        return $this;
+    }
+
+    /**
+     * Checks if the material stock is at a critical level (in stock is less than minimal stock).
+     *
+     * @return bool
+     */
+    public function isCritical(): bool
+    {
+        return ($this->in_stock ?? 0) < ($this->min_stock ?? 0);
+    }
+
+    /**
+     * Checks if the material stock is saturated (in stock is greater than or equal to minimal stock).
+     *
+     * @return bool
+     */
+    public function isSaturated(): bool
+    {
+        return ($this->in_stock ?? 0) >= ($this->min_stock ?? 0);
+    }
+
     public function getUnit(): ?string
     {
         return $this->unit;
@@ -103,15 +134,14 @@ class Material extends Model
         return $this;
     }
 
-    public function getStatus(): ?string
+    /**
+     * Dynamically determines the status of the material based on stock levels.
+     *
+     * @return string 'Kritický' if in_stock < min_stock, otherwise 'Saturovaný'
+     */
+    public function getStatus(): string
     {
-        return $this->status;
-    }
-
-    public function setStatus(?string $status): self
-    {
-        $this->status = $status;
-        return $this;
+        return $this->isCritical() ? 'Kritický' : 'Saturovaný';
     }
 
     public function getDescription(): ?string
@@ -143,11 +173,6 @@ class Material extends Model
      */
     public function getStatusBadgeClass(): string
     {
-        return match (mb_strtolower(trim($this->status ?? ''))) {
-            'aktívny', 'aktivny', 'active' => 'badge-active',
-            'rezerva', 'reserve' => 'badge-reserve',
-            'kritický', 'kriticky', 'critical' => 'badge-critical',
-            default => 'badge-active',
-        };
+        return $this->isCritical() ? 'badge-critical' : 'badge-active';
     }
 }
