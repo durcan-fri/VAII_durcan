@@ -1,6 +1,7 @@
 <?php
 
 /** @var \App\Models\Material|null $material */
+/** @var \App\Models\MaterialType[]|null $materialTypes */
 /** @var string[] $errors */
 
 $currentUnit = $material?->getUnit() ?? 'ks';
@@ -23,7 +24,7 @@ $currentWarehouse = $material?->getWarehouse() ?? 'Hlavný';
             Názov materiálu <span class="required">*</span>
         </label>
         <input type="text" name="title" id="title" class="form-control"
-               value="<?= e($material?->getTitle() ?? '') ?>"
+               value="<?= e($material?->getTitle() !== 'Neznámy materiál' ? ($material?->getTitle() ?? '') : '') ?>"
                placeholder="napr. Oceľový profil 40×40" required>
     </div>
 
@@ -32,7 +33,7 @@ $currentWarehouse = $material?->getWarehouse() ?? 'Hlavný';
             Kód materiálu <span class="required">*</span>
         </label>
         <input type="text" name="code" id="code" class="form-control"
-               value="<?= e($material?->getCode() ?? '') ?>"
+               value="<?= e($material?->getCode() !== '-' ? ($material?->getCode() ?? '') : '') ?>"
                placeholder="napr. PR-40-40" required>
     </div>
 
@@ -85,8 +86,8 @@ $currentWarehouse = $material?->getWarehouse() ?? 'Hlavný';
     </div>
 
     <div class="form-group full-width">
-        <label for="description" class="form-label">Popis / Poznámka</label>
+        <label for="description" class="form-label">Popis / Poznámka k uskladneniu</label>
         <textarea name="description" id="description" class="form-control"
-                  placeholder="Doplňujúce informácie o materiáli..."><?= e($material?->getDescription() ?? '') ?></textarea>
+                  placeholder="Doplňujúce informácie o uskladnenom materiáli..."><?= e($material?->getDescription() ?? '') ?></textarea>
     </div>
 </div>
